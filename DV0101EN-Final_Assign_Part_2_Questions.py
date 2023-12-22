@@ -38,15 +38,15 @@ app.layout = html.Div([
         html.Label("Select Statistics:"),
         dcc.Dropdown(
             id='dropdown-statistics',
-            options=
-            value='Select Statistics',
+            options='dropdown_options',
+            value='Select Statistics'
             
         )
     ]),
     html.Div(dcc.Dropdown(
             id='select-year',
             options=[{'label': i, 'value': i} for i in year_list],
-            value='Select-year',
+            value='Select-year'
         )),
     html.Div([#TASK 2.3: Add a division for output display
     html.Div(id='output-container', className='chart-grid', style={'display': 'flex'}),])
@@ -113,6 +113,7 @@ def update_output_container(selected_statistics, input_year):
                                             x='unemployment_Rate',
                                             y='Automobile_Sales',
                                             color='Vehicle_Type',
+                                            labels={'unemployment_rate': 'Unemployment Rate', 'Automobile_Sales': 'Average Automobile Sales'},  
                                             title="Unemployment to Automobile Sales by Vehicle Type over Recession Period")
                             )
 
@@ -137,9 +138,9 @@ def update_output_container(selected_statistics, input_year):
                                             title="Yearly Automobile Sales Average"))
             
 # Plot 2 Total Monthly Automobile sales using line chart.
-        mas = data.groupby('Month')['Automobile_Sales'].sum().reset_index()
+        
         Y_chart2 = dcc.Graph(figure=px.line(
-                                            mas,
+                                            yearly_data,
                                             x='Month',
                                             y='Automobile_Sales',
                                             title="Monthly Automobile Sales Total")

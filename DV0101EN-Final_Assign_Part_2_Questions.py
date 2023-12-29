@@ -107,15 +107,15 @@ def update_output_container(selected_statistics, input_year):
                             )
 
 # Plot 4 bar chart for the effect of unemployment rate on vehicle type and sales
-        unemp = recession_data.groupby(['Vehicle_Type','unemployment_Rate'])['Automobile_Sales'].mean().reset_index()
-        R_chart4 = dcc.Graph(figure=px.bar(
-                                            unemp,
-                                            x='unemployment_Rate',
-                                            y='Automobile_Sales',
-                                            color='Vehicle_Type',
-                                            labels={'unemployment_rate': 'Unemployment Rate', 'Automobile_Sales': 'Average Automobile Sales'},  
-                                            title="Unemployment to Automobile Sales by Vehicle Type over Recession Period")
-                            )
+        unemp_data= recession_data.groupby(['Vehicle_Type', 'unemployment_rate'])['Automobile_Sales'].mean().reset_index()
+        R_chart4 = dcc.Graph(
+            figure=px.bar(
+                unemp_data,
+                x='unemployment_rate',
+                y='Automobile_Sales',
+                color='Vehicle_Type',
+                labels={'unemployment_rate': 'Unemployment Rate', 'Automobile_Sales': 'Average Automobile Sales'},
+                title="Effect of Unemployment Rate on Sales of various Vehicle Types"))
 
 
         return [
